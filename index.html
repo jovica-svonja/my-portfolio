@@ -1,0 +1,907 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Berbach Project Portfolio</title>
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Source+Serif+4:opsz,wght@8..60,400;8..60,600;8..60,700&family=IBM+Plex+Sans:wght@400;500;600&family=IBM+Plex+Mono:wght@400;500&display=swap">
+<style>
+  :root{
+    --bg:#f6f7f5;
+    --surface:#ffffff;
+    --border:#dfe3de;
+    --ink:#12181a;
+    --ink-soft:#4c5854;
+    --muted:#78847e;
+    --accent:#245a52;
+    --accent-ink:#eaf3f0;
+    --pill-bg:#eef1ec;
+    --pill-ink:#33403a;
+    --pill-border:#d3dbd2;
+    --tag-active-bg:#245a52;
+    --tag-active-ink:#f4f8f6;
+    --code-bg:#101615;
+    --code-ink:#d9e5df;
+    --shadow: 0 1px 2px rgba(18,24,26,.04), 0 8px 24px rgba(18,24,26,.05);
+  }
+  @media (prefers-color-scheme: dark){
+    :root:not([data-theme="light"]){
+      --bg:#10130f;
+      --surface:#171c17;
+      --border:#2a322a;
+      --ink:#eef1ea;
+      --ink-soft:#c2cbc2;
+      --muted:#8b988f;
+      --accent:#6fbfae;
+      --accent-ink:#0e2622;
+      --pill-bg:#1e251e;
+      --pill-ink:#c9d3c7;
+      --pill-border:#333d31;
+      --tag-active-bg:#6fbfae;
+      --tag-active-ink:#0c211d;
+      --code-bg:#0a0e0b;
+      --code-ink:#bcd6c8;
+      --shadow: 0 1px 2px rgba(0,0,0,.3), 0 8px 24px rgba(0,0,0,.35);
+    }
+  }
+  :root[data-theme="dark"]{
+    --bg:#10130f;
+    --surface:#171c17;
+    --border:#2a322a;
+    --ink:#eef1ea;
+    --ink-soft:#c2cbc2;
+    --muted:#8b988f;
+    --accent:#6fbfae;
+    --accent-ink:#0e2622;
+    --pill-bg:#1e251e;
+    --pill-ink:#c9d3c7;
+    --pill-border:#333d31;
+    --tag-active-bg:#6fbfae;
+    --tag-active-ink:#0c211d;
+    --code-bg:#0a0e0b;
+    --code-ink:#bcd6c8;
+    --shadow: 0 1px 2px rgba(0,0,0,.3), 0 8px 24px rgba(0,0,0,.35);
+  }
+
+  *{box-sizing:border-box;}
+  body{
+    background:var(--bg);
+    color:var(--ink);
+    font-family:"IBM Plex Sans", -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+    line-height:1.55;
+    padding:0 20px;
+  }
+  a{color:var(--accent);}
+  h1,h2,h3{
+    font-family:"Source Serif 4","Georgia",serif;
+    color:var(--ink);
+    text-wrap:balance;
+    margin:0;
+  }
+  .mono{font-family:"IBM Plex Mono", ui-monospace, SFMono-Regular, Menlo, monospace;}
+
+  .wrap{max-width:1080px;margin:0 auto;}
+
+  /* Header */
+  header.hero{
+    padding:56px 0 36px;
+    border-bottom:1px solid var(--border);
+  }
+  .eyebrow{
+    font-family:"IBM Plex Mono", monospace;
+    font-size:.72rem;
+    letter-spacing:.14em;
+    text-transform:uppercase;
+    color:var(--accent);
+    margin-bottom:14px;
+    display:block;
+  }
+  header.hero h1{font-size:clamp(1.9rem,4.4vw,2.9rem);font-weight:600;}
+  header.hero .role{
+    font-size:1.05rem;
+    color:var(--ink-soft);
+    margin-top:8px;
+    font-family:"IBM Plex Sans",sans-serif;
+  }
+  .tenure{
+    display:inline-flex;gap:8px;align-items:baseline;
+    margin-top:6px;color:var(--muted);font-size:.92rem;
+  }
+
+  .summary{
+    max-width:72ch;
+    margin-top:22px;
+    font-size:1.02rem;
+    color:var(--ink-soft);
+  }
+  .summary strong{color:var(--ink);font-weight:600;}
+
+  /* Reference callout */
+  .reference{
+    margin-top:28px;
+    background:var(--surface);
+    border:1px solid var(--border);
+    border-left:3px solid var(--accent);
+    border-radius:6px;
+    padding:20px 22px;
+    box-shadow:var(--shadow);
+  }
+  .reference p{margin:0 0 10px;font-style:italic;color:var(--ink-soft);}
+  .reference p:last-of-type{margin-bottom:0;}
+  .reference footer{
+    margin-top:12px;font-style:normal;font-size:.85rem;color:var(--muted);
+    font-family:"IBM Plex Mono",monospace;
+  }
+
+  /* Sections */
+  section{padding:40px 0;border-bottom:1px solid var(--border);}
+  section:last-of-type{border-bottom:none;}
+  .section-head{margin-bottom:22px;}
+  .section-head h2{font-size:1.5rem;font-weight:600;}
+  .section-head p{color:var(--muted);margin-top:6px;font-size:.94rem;max-width:65ch;}
+
+  /* Stack/tool groups */
+  .group-grid{
+    display:grid;
+    grid-template-columns:repeat(auto-fit,minmax(220px,1fr));
+    gap:18px;
+  }
+  .group{
+    background:var(--surface);
+    border:1px solid var(--border);
+    border-radius:8px;
+    padding:16px 18px;
+  }
+  .group h3{
+    font-family:"IBM Plex Mono",monospace;
+    font-size:.72rem;
+    letter-spacing:.08em;
+    text-transform:uppercase;
+    color:var(--muted);
+    font-weight:600;
+    margin-bottom:10px;
+  }
+  .pills{display:flex;flex-wrap:wrap;gap:7px;}
+  .pill{
+    background:var(--pill-bg);
+    color:var(--pill-ink);
+    border:1px solid var(--pill-border);
+    border-radius:999px;
+    padding:4px 11px;
+    font-size:.78rem;
+    font-family:"IBM Plex Mono",monospace;
+    white-space:nowrap;
+  }
+
+  /* Standards list */
+  .standards{
+    display:grid;
+    grid-template-columns:repeat(auto-fit,minmax(260px,1fr));
+    gap:14px 24px;
+    color:var(--ink-soft);
+    font-size:.95rem;
+  }
+  .standards li{margin-bottom:6px;}
+  .standards ul{margin:0;padding-left:1.1em;}
+
+  /* Filter bar */
+  .filterbar{
+    display:flex;flex-wrap:wrap;gap:8px;
+    margin-bottom:22px;
+    position:sticky;
+    top:0;
+    background:var(--bg);
+    padding:12px 0;
+    z-index:5;
+  }
+  .filter-btn{
+    font-family:"IBM Plex Mono",monospace;
+    font-size:.76rem;
+    border:1px solid var(--pill-border);
+    background:var(--pill-bg);
+    color:var(--pill-ink);
+    border-radius:999px;
+    padding:6px 13px;
+    cursor:pointer;
+  }
+  .filter-btn.active{background:var(--tag-active-bg);color:var(--tag-active-ink);border-color:var(--tag-active-bg);}
+  .filter-btn:focus-visible{outline:2px solid var(--accent);outline-offset:2px;}
+
+  /* Index list */
+  .index-list{
+    columns:2;
+    column-gap:32px;
+    list-style:none;
+    margin:0;padding:0;
+  }
+  @media (max-width:640px){.index-list{columns:1;}}
+  .index-list li{
+    break-inside:avoid;
+    margin-bottom:9px;
+  }
+  .index-list a{
+    color:var(--ink-soft);
+    text-decoration:none;
+    font-size:.92rem;
+    display:flex;
+    gap:8px;
+    align-items:baseline;
+  }
+  .index-list a:hover{color:var(--accent);}
+  .index-cms{
+    font-family:"IBM Plex Mono",monospace;
+    font-size:.68rem;
+    color:var(--muted);
+    white-space:nowrap;
+  }
+
+  /* Project cards */
+  .projects{display:flex;flex-direction:column;gap:20px;}
+  .card{
+    background:var(--surface);
+    border:1px solid var(--border);
+    border-radius:10px;
+    overflow:hidden;
+    box-shadow:var(--shadow);
+    scroll-margin-top:70px;
+    display:grid;
+    grid-template-columns:340px 1fr;
+  }
+  @media (max-width:760px){.card{grid-template-columns:1fr;}}
+  .card .shot{
+    background:var(--pill-bg);
+    aspect-ratio:16/10;
+    overflow:hidden;
+    position:relative;
+    border-right:1px solid var(--border);
+  }
+  @media (max-width:760px){.card .shot{border-right:none;border-bottom:1px solid var(--border);}}
+  .card .shot img{width:100%;height:100%;object-fit:cover;object-position:top;display:block;}
+  .card .shot .placeholder{
+    width:100%;height:100%;display:flex;align-items:center;justify-content:center;
+    color:var(--muted);font-family:"IBM Plex Mono",monospace;font-size:.78rem;text-align:center;padding:18px;
+  }
+  .card .body{padding:20px 22px;}
+  .card h3.title{font-size:1.15rem;font-weight:600;margin-bottom:2px;}
+  .card .cms{
+    display:block;
+    font-family:"IBM Plex Mono",monospace;
+    font-size:.72rem;
+    letter-spacing:.04em;
+    text-transform:uppercase;
+    color:var(--accent);
+    margin-bottom:4px;
+  }
+  .card .url{
+    font-family:"IBM Plex Mono",monospace;
+    font-size:.82rem;
+    color:var(--muted);
+    margin-bottom:12px;
+    display:block;
+    word-break:break-all;
+  }
+  .card .url a{color:var(--muted);}
+  .card .url a:hover{color:var(--accent);}
+  .card p.desc{color:var(--ink-soft);font-size:.94rem;margin-bottom:10px;}
+  .card p.role{color:var(--ink-soft);font-size:.94rem;margin-bottom:14px;}
+  .card p.role strong{color:var(--ink);font-weight:600;}
+
+  footer.page-footer{
+    padding:36px 0 60px;
+    color:var(--muted);
+    font-size:.85rem;
+  }
+  footer.page-footer .mono{display:block;margin-top:6px;}
+</style>
+</head>
+<body>
+
+
+<div class="wrap">
+
+  <header class="hero">
+    <span class="eyebrow">Project Portfolio · berbach GmbH</span>
+    <h1>Jovica Svonja — Web Developer</h1>
+    <div class="role">Full-stack CMS &amp; web application development for public-sector, research, and commercial clients</div>
+    <div class="tenure mono">berbach GmbH, Berlin — Junior Web Developer Feb 2019–May 2023 · Web Developer Jun 2023–Sep 2026</div>
+
+    <p class="summary">
+      Over seven years at <strong>berbach GmbH</strong>, a Berlin design &amp; media agency, delivering
+      <strong>35 production websites and web applications</strong> across
+      <strong>Kirby CMS, TYPO3, Symfony, Shopware, WordPress</strong> and <strong>Directus Headless CMS</strong>.
+      Scope spanned the full project lifecycle: CMS architecture and concept planning, custom backend
+      logic and database design, modular vanilla JavaScript frontends, REST API integrations, e-commerce
+      and payment systems (Snipcart, Stripe, PayPal, Wallee), social-media automation via GetStream and
+      cron-driven publishing, SEO/accessibility/performance optimization, GDPR consent-banner tooling,
+      and production server administration across DigitalOcean, Hetzner, IONOS, Strato and Domain Factory.
+    </p>
+
+    <div class="reference">
+      <p>“He always delivered outstanding results, both qualitatively and quantitatively. Mr. Svonja
+      always had good ideas and consistently found optimal solutions. His technical implementations
+      always met with the highest approval among colleagues. […] Processes could be entrusted to
+      Mr. Svonja with the utmost confidence.”</p>
+      <p>“His work style was characterized to the highest degree by reliability, dependability,
+      systematic thinking and a strong sense of responsibility.”</p>
+      <footer class="mono">— Employer reference (Zeugnis), berbach GmbH, Berlin, 30.09.2026 — signed Torsten Alberts, Managing Director. Translated from German; original on file.</footer>
+    </div>
+  </header>
+
+  <section id="stack">
+    <div class="section-head">
+      <h2>Tools, Systems &amp; Integrations</h2>
+      <p>As confirmed in the employer reference issued by berbach GmbH.</p>
+    </div>
+    <div class="group-grid">
+      <div class="group">
+        <h3>CMS &amp; Frameworks</h3>
+        <div class="pills">
+          <span class="pill">Kirby CMS</span><span class="pill">TYPO3</span><span class="pill">Symfony</span>
+          <span class="pill">Shopware</span><span class="pill">WordPress</span><span class="pill">Directus Headless CMS</span>
+        </div>
+      </div>
+      <div class="group">
+        <h3>Languages &amp; Frontend</h3>
+        <div class="pills">
+          <span class="pill">PHP</span><span class="pill">JavaScript (modular)</span><span class="pill">HTML5</span>
+          <span class="pill">SCSS/CSS</span><span class="pill">Vue.js</span><span class="pill">Next.js</span><span class="pill">Nuxt.js</span><span class="pill">MySQL</span><span class="pill">Doctrine ORM</span><span class="pill">REST APIs</span>
+        </div>
+      </div>
+      <div class="group">
+        <h3>Design &amp; Dev Tools</h3>
+        <div class="pills">
+          <span class="pill">Adobe XD</span><span class="pill">Affinity</span><span class="pill">Figma</span><span class="pill">VS Code</span>
+          <span class="pill">GitHub</span><span class="pill">Terminal</span><span class="pill">ChatGPT</span><span class="pill">Claude Code</span>
+        </div>
+      </div>
+      <div class="group">
+        <h3>Third-Party &amp; Payments</h3>
+        <div class="pills">
+          <span class="pill">Snipcart</span><span class="pill">Stripe</span><span class="pill">PayPal</span><span class="pill">Wallee</span>
+          <span class="pill">GetStream</span><span class="pill">Post for Me</span><span class="pill">Metricool</span><span class="pill">YouTube API</span>
+        </div>
+      </div>
+      <div class="group">
+        <h3>Hosting &amp; Infrastructure</h3>
+        <div class="pills">
+          <span class="pill">DigitalOcean</span><span class="pill">Hetzner</span><span class="pill">IONOS</span>
+          <span class="pill">Strato</span><span class="pill">Domain Factory</span><span class="pill">All-Inkl</span><span class="pill">Docker</span><span class="pill">Git Actions / CI-CD</span>
+        </div>
+      </div>
+      <div class="group">
+        <h3>Analytics, SEO &amp; QA</h3>
+        <div class="pills">
+          <span class="pill">Google Analytics</span><span class="pill">Google Search Console</span><span class="pill">Matomo</span>
+          <span class="pill">Lighthouse</span><span class="pill">WAVE Accessibility</span><span class="pill">Schema Markup</span>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section id="standards">
+    <div class="section-head">
+      <h2>Engineering Standards Applied Across Projects</h2>
+      <p>Baseline practice carried through every Kirby CMS, TYPO3 and WordPress build delivered for berbach GmbH clients.</p>
+    </div>
+    <div class="standards">
+      <ul>
+        <li>Separate development and production environments for every project (staging on All-Inkl for Kirby builds; dedicated staging for WordPress/TYPO3)</li>
+        <li>In-house plugin suite reused across all Kirby CMS projects: XML sitemap generator, SEO meta tooling, GDPR-compliant consent-banner, client-side email/phone obfuscation ("crypto"), tag management — each with its own Panel-side configuration UI built in Vue.js (Kirby's admin Panel is a Vue application)</li>
+        <li>Google Maps API, Google Analytics, Matomo Analytics and Google Search Console wired in as standard on every Kirby project</li>
+      </ul>
+      <ul>
+        <li>Contact forms with transactional mail delivery on every site</li>
+        <li>TYPO3 builds implemented on Foundation (ZURB) or UIkit; Kirby builds on hand-written vanilla SCSS and modular vanilla JavaScript (no framework dependency)</li>
+        <li>MySQL as the standard database for TYPO3, WordPress, Shopware and Symfony projects; Kirby CMS projects use its flat-file, database-free folder structure instead</li>
+        <li>Shared accessible lightbox component (keyboard navigation, focus trapping, ARIA labeling) used as a standard image/gallery viewer across every website, regardless of CMS</li>
+        <li>Browser, performance, Google, SEO and accessibility optimization prior to every launch</li>
+      </ul>
+    </div>
+  </section>
+
+  <section id="index">
+    <div class="section-head">
+      <h2>Project Index — 38 Entries</h2>
+      <p>35 client projects delivered for berbach GmbH (per the employer reference's project list), plus 3 internal tooling/demo projects. Filter by system, or jump straight to a project. Each entry links to a full case card below with a homepage capture, project summary, my specific contribution, and the technologies used.</p>
+    </div>
+    <nav class="filterbar" id="filterbar" aria-label="Filter projects by technology">
+      <button class="filter-btn active" data-filter="all">All (38)</button>
+      <button class="filter-btn" data-filter="Kirby CMS">Kirby CMS</button>
+      <button class="filter-btn" data-filter="TYPO3">TYPO3</button>
+      <button class="filter-btn" data-filter="Symfony">Symfony</button>
+      <button class="filter-btn" data-filter="Shopware">Shopware</button>
+      <button class="filter-btn" data-filter="WordPress">WordPress</button>
+    </nav>
+    <ul class="index-list" id="indexList">
+      <li data-tags="Kirby CMS|Maintenance|Bug Fixing"><a href="#ago-group"><span class="index-cms">[Kirby CMS]</span> Ago Consulting Group GmbH</a></li>
+      <li data-tags="TYPO3|JavaScript|SCSS|Animation|Frontend"><a href="#agya"><span class="index-cms">[TYPO3]</span> AGYA — Arab German Young Academy of Sciences and Humanities</a></li>
+      <li data-tags="WordPress|Symfony|REST API|PHP|Plugin Development"><a href="#amr-conference"><span class="index-cms">[WordPress]</span> AMR Conference (Registrierung)</a></li>
+      <li data-tags="Kirby CMS|JavaScript|SEO|Consent Banner (GDPR)|Vue.js (Kirby Panel)"><a href="#bauernhof-thamm"><span class="index-cms">[Kirby CMS]</span> Bauernhof Thamm</a></li>
+      <li data-tags="Kirby CMS|JavaScript|SEO|Consent Banner (GDPR)|Vue.js (Kirby Panel)"><a href="#beatrice-staib"><span class="index-cms">[Kirby CMS]</span> Beatrice Staib, Fotografin</a></li>
+      <li data-tags="Kirby CMS|JavaScript|Internal Tooling|CSV Export|SEO|Consent Banner (GDPR)|Vue.js (Kirby Panel)"><a href="#blocherpartners"><span class="index-cms">[Kirby CMS]</span> Blocher Partners Architekten</a></li>
+      <li data-tags="Kirby CMS|JavaScript|SEO|Consent Banner (GDPR)|Vue.js (Kirby Panel)"><a href="#bp-sustain"><span class="index-cms">[Kirby CMS]</span> BP Sustain</a></li>
+      <li data-tags="Kirby CMS|JavaScript|SEO|Consent Banner (GDPR)|Vue.js (Kirby Panel)"><a href="#cbwnet"><span class="index-cms">[Kirby CMS]</span> CBWnet</a></li>
+      <li data-tags="Kirby CMS|E-Commerce|Snipcart|Stripe|PayPal|UPS API|Order Logic"><a href="#citeseeing"><span class="index-cms">[Kirby CMS]</span> Citeseeing Postershop</a></li>
+      <li data-tags="Kirby CMS|JavaScript|SEO|Consent Banner (GDPR)|Vue.js (Kirby Panel)"><a href="#deepcuts"><span class="index-cms">[Kirby CMS]</span> Deepcuts</a></li>
+      <li data-tags="TYPO3|JavaScript|Backend Development|Research / Institutional Web"><a href="#fbh-berlin"><span class="index-cms">[TYPO3]</span> Ferdinand-Braun-Institut (FBH)</a></li>
+      <li data-tags="TYPO3|Public Sector / Government"><a href="#forschungsboerse"><span class="index-cms">[TYPO3]</span> Forschungsbörse der Wissenschaftsjahre, DLR-Projektträger</a></li>
+      <li data-tags="Kirby CMS|JavaScript|SEO|Consent Banner (GDPR)|Vue.js (Kirby Panel)"><a href="#hc-schink"><span class="index-cms">[Kirby CMS]</span> Hans Christian Schink, Fotograf</a></li>
+      <li data-tags="Kirby CMS|JavaScript|SEO|Consent Banner (GDPR)|Vue.js (Kirby Panel)"><a href="#holocaust-remedies"><span class="index-cms">[Kirby CMS]</span> Holocaust Remedies</a></li>
+      <li data-tags="Kirby CMS|JavaScript|SEO|Consent Banner (GDPR)|Vue.js (Kirby Panel)"><a href="#hellmund-berater"><span class="index-cms">[Kirby CMS]</span> Hellmund – die Berater, Ina & Jörg Westphal GbR</a></li>
+      <li data-tags="Kirby CMS|JavaScript|SEO|Consent Banner (GDPR)|Vue.js (Kirby Panel)"><a href="#innenarchitektur-werkstatt"><span class="index-cms">[Kirby CMS]</span> Innenarchitektur & Werkstatt Florian Siegel</a></li>
+      <li data-tags="TYPO3|JavaScript|Backend Development|Public Sector / Government"><a href="#innocam-nrw"><span class="index-cms">[TYPO3]</span> Innocam.NRW</a></li>
+      <li data-tags="TYPO3|Frontend|Relaunch"><a href="#hoertnagel"><span class="index-cms">[TYPO3]</span> Konzertdirektion Hörtnagel Berlin</a></li>
+      <li data-tags="Shopware|E-Commerce|PHP|Theme Development"><a href="#kryolan"><span class="index-cms">[Shopware]</span> Kryolan / PMC Berlin</a></li>
+      <li data-tags="Kirby CMS|JavaScript|SEO|Consent Banner (GDPR)|Vue.js (Kirby Panel)"><a href="#linda-creed"><span class="index-cms">[Kirby CMS]</span> Linda Creed Breast Cancer Organization</a></li>
+      <li data-tags="Kirby CMS|JavaScript|SEO|Consent Banner (GDPR)|Vue.js (Kirby Panel)|CDN (bunny.net)"><a href="#luxuar"><span class="index-cms">[Kirby CMS]</span> Luxuar Fashion</a></li>
+      <li data-tags="WordPress|Kirby CMS|JavaScript|SEO"><a href="#maren-lehky"><span class="index-cms">[WordPress]</span> Maren Lehky</a></li>
+      <li data-tags="Kirby CMS|JavaScript|SEO|Consent Banner (GDPR)|Vue.js (Kirby Panel)"><a href="#restauratorhannover"><span class="index-cms">[Kirby CMS]</span> Martin Merkert (Restaurator)</a></li>
+      <li data-tags="TYPO3|JavaScript|Backend Development|Research / Institutional Web"><a href="#mbi-berlin"><span class="index-cms">[TYPO3]</span> Max-Born-Institut (MBI)</a></li>
+      <li data-tags="Kirby CMS|Maintenance|Feature Development"><a href="#mzla"><span class="index-cms">[Kirby CMS]</span> Medizinisches Zentrallabor Altenburg (MZLA)</a></li>
+      <li data-tags="Kirby CMS|JavaScript|SEO|Consent Banner (GDPR)|Vue.js (Kirby Panel)"><a href="#mwanawange"><span class="index-cms">[Kirby CMS]</span> Mwana Wange</a></li>
+      <li data-tags="TYPO3|JavaScript|Backend Development|Research / Institutional Web"><a href="#pdi-berlin"><span class="index-cms">[TYPO3]</span> Paul-Drude-Institut (PDI)</a></li>
+      <li data-tags="Kirby CMS|JavaScript|SEO|Consent Banner (GDPR)|Vue.js (Kirby Panel)"><a href="#claudia-alberts"><span class="index-cms">[Kirby CMS]</span> Praxis Claudia Alberts</a></li>
+      <li data-tags="Kirby CMS|JavaScript|SEO|Consent Banner (GDPR)|Vue.js (Kirby Panel)"><a href="#preminded"><span class="index-cms">[Kirby CMS]</span> preminded.com, Jörg Becker</a></li>
+      <li data-tags="Directus Headless CMS|Nuxt.js|Kirby CMS|Interactive App|Gamification|Animation"><a href="#sachensucher"><span class="index-cms">[Directus]</span> Sachensucher (Kinderuni Bochum)</a></li>
+      <li data-tags="WordPress|Symfony|Wallee|REST API|Multi-step Forms|Conditional Logic"><a href="#swissbiotechday"><span class="index-cms">[WordPress]</span> Swiss Biotech Day (Registrierung)</a></li>
+      <li data-tags="Kirby CMS|JavaScript|SEO|Consent Banner (GDPR)|Vue.js (Kirby Panel)"><a href="#tonderaplan"><span class="index-cms">[Kirby CMS]</span> Tonderaplan Architekt</a></li>
+      <li data-tags="Directus Headless CMS|Next.js|Symfony|Doctrine ORM|PHP|GetStream|API Automation|Cron Jobs|Social Media Integration|Authentication|i18n (Loco)"><a href="#truckinfocus"><span class="index-cms">[Directus]</span> truckinfocus.com</a></li>
+      <li data-tags="Kirby CMS|JavaScript|i18n / Translation Plugin|SEO|Consent Banner (GDPR)|Vue.js (Kirby Panel)"><a href="#typenraum"><span class="index-cms">[Kirby CMS]</span> typenraum GmbH & Co. KG</a></li>
+      <li data-tags="TYPO3|JavaScript|Backend Development|Research / Institutional Web"><a href="#zmo"><span class="index-cms">[TYPO3]</span> Zentrum Moderner Orient (ZMO)</a></li>
+      <li data-tags="Kirby CMS|Vue.js|Animation|Panel Color Config|Internal Project"><a href="#berbach-relaunch"><span class="index-cms">[Kirby CMS]</span> berbach GmbH — Agency Website Relaunch</a></li>
+      <li data-tags="Kirby CMS|Internal Tooling|Theming System|Panel Color Config|Starter Kit"><a href="#berbach-theme-v1"><span class="index-cms">[Kirby CMS]</span> berbach Theme v1 (Internal Starter Kit)</a></li>
+      <li data-tags="Kirby CMS|Internal Tooling|Theming System|Panel Color Config|Starter Kit"><a href="#berbach-theme-v2"><span class="index-cms">[Kirby CMS]</span> berbach Theme v2 (Internal Starter Kit)</a></li>
+    </ul>
+  </section>
+
+  <section id="projects">
+    <div class="section-head">
+      <h2>Project Case List</h2>
+    </div>
+    <div class="projects" id="projectsList">
+      <article class="card" id="ago-group" data-tags="Kirby CMS|Maintenance|Bug Fixing">
+        <div class="shot"><img src="shots/ago-group.jpg" alt="Homepage screenshot of Ago Consulting Group GmbH" loading="lazy"></div>
+        <div class="body">
+          <h3 class="title">Ago Consulting Group GmbH</h3>
+          <span class="cms mono">Kirby CMS</span>
+          <span class="url"><a href="https://ago-group.com" target="_blank" rel="noopener">ago-group.com</a></span>
+          <p class="desc">Recruitment and staffing consultancy website.</p>
+          <p class="role"><strong>My contribution — </strong>Ongoing maintenance and targeted bug fixes on a Kirby CMS site originally built by another developer.</p>
+          <div class="pills"><span class="pill">Kirby CMS</span><span class="pill">Maintenance</span><span class="pill">Bug Fixing</span></div>
+        </div>
+      </article>
+      <article class="card" id="agya" data-tags="TYPO3|JavaScript|SCSS|Animation|Frontend">
+        <div class="shot"><img src="shots/agya.jpg" alt="Homepage screenshot of AGYA — Arab German Young Academy of Sciences and Humanities" loading="lazy"></div>
+        <div class="body">
+          <h3 class="title">AGYA — Arab German Young Academy of Sciences and Humanities</h3>
+          <span class="cms mono">TYPO3</span>
+          <span class="url"><a href="https://agya.info" target="_blank" rel="noopener">agya.info</a></span>
+          <p class="desc">Academic network platform for early-career researchers between the Arab world and Germany.</p>
+          <p class="role"><strong>My contribution — </strong>Frontend development and styling, modular JavaScript components (including animated counters and page animations), plus targeted backend elements in TYPO3.</p>
+          <div class="pills"><span class="pill">TYPO3</span><span class="pill">JavaScript</span><span class="pill">SCSS</span><span class="pill">Animation</span><span class="pill">Frontend</span></div>
+        </div>
+      </article>
+      <article class="card" id="amr-conference" data-tags="WordPress|Symfony|REST API|PHP|Plugin Development">
+        <div class="shot"><img src="shots/amr-conference.jpg" alt="Homepage screenshot of AMR Conference (Registrierung)" loading="lazy"></div>
+        <div class="body">
+          <h3 class="title">AMR Conference (Registrierung)</h3>
+          <span class="cms mono">WordPress + Symfony API</span>
+          <span class="url"><a href="https://amr-conference.com" target="_blank" rel="noopener">amr-conference.com</a></span>
+          <p class="desc">Registration platform for an international antimicrobial-resistance (AMR) research conference.</p>
+          <p class="role"><strong>My contribution — </strong>Theme customization and development of 10 custom WordPress plugins, including a registration form integrated with a Symfony backend over a REST API.</p>
+          <div class="pills"><span class="pill">WordPress</span><span class="pill">Symfony</span><span class="pill">REST API</span><span class="pill">PHP</span><span class="pill">Plugin Development</span></div>
+        </div>
+      </article>
+      <article class="card" id="bauernhof-thamm" data-tags="Kirby CMS|JavaScript|SEO|Consent Banner (GDPR)|Vue.js (Kirby Panel)">
+        <div class="shot"><img src="shots/bauernhof-thamm.jpg" alt="Homepage screenshot of Bauernhof Thamm" loading="lazy"></div>
+        <div class="body">
+          <h3 class="title">Bauernhof Thamm</h3>
+          <span class="cms mono">Kirby CMS</span>
+          <span class="url"><a href="https://bauernhof-thamm.de" target="_blank" rel="noopener">bauernhof-thamm.de</a></span>
+          <p class="desc">Farm holiday accommodation site with booking information, riding and Pilates offerings.</p>
+          <p class="role"><strong>My contribution — </strong>Solo build from scratch — modular JavaScript, custom sitemap/SEO/consent-banner plugin suite.</p>
+          <div class="pills"><span class="pill">Kirby CMS</span><span class="pill">JavaScript</span><span class="pill">SEO</span><span class="pill">Consent Banner (GDPR)</span><span class="pill">Vue.js (Kirby Panel)</span></div>
+        </div>
+      </article>
+      <article class="card" id="beatrice-staib" data-tags="Kirby CMS|JavaScript|SEO|Consent Banner (GDPR)|Vue.js (Kirby Panel)">
+        <div class="shot"><img src="shots/beatrice-staib.jpg" alt="Homepage screenshot of Beatrice Staib, Fotografin" loading="lazy"></div>
+        <div class="body">
+          <h3 class="title">Beatrice Staib, Fotografin</h3>
+          <span class="cms mono">Kirby CMS</span>
+          <span class="url"><a href="https://www.beatrice-staib.de" target="_blank" rel="noopener">www.beatrice-staib.de</a></span>
+          <p class="desc">Portfolio website for a professional photographer.</p>
+          <p class="role"><strong>My contribution — </strong>Solo build from scratch, including modular JavaScript and the standard plugin suite.</p>
+          <div class="pills"><span class="pill">Kirby CMS</span><span class="pill">JavaScript</span><span class="pill">SEO</span><span class="pill">Consent Banner (GDPR)</span><span class="pill">Vue.js (Kirby Panel)</span></div>
+        </div>
+      </article>
+      <article class="card" id="blocherpartners" data-tags="Kirby CMS|JavaScript|Internal Tooling|CSV Export|SEO|Consent Banner (GDPR)|Vue.js (Kirby Panel)">
+        <div class="shot"><img src="shots/blocherpartners.jpg" alt="Homepage screenshot of Blocher Partners Architekten" loading="lazy"></div>
+        <div class="body">
+          <h3 class="title">Blocher Partners Architekten</h3>
+          <span class="cms mono">Kirby CMS</span>
+          <span class="url"><a href="https://www.blocherpartners.com" target="_blank" rel="noopener">www.blocherpartners.com</a></span>
+          <p class="desc">Corporate and project portfolio site for an international architecture firm.</p>
+          <p class="role"><strong>My contribution — </strong>Solo build from scratch. Authored internal technical documentation, developed the shared sitemap/SEO/consent-banner plugin suite reused across all Kirby projects, and built an internal admin dashboard listing every agency project with per-language version tracking and CSV export.</p>
+          <div class="pills"><span class="pill">Kirby CMS</span><span class="pill">JavaScript</span><span class="pill">Internal Tooling</span><span class="pill">CSV Export</span><span class="pill">SEO</span><span class="pill">Consent Banner (GDPR)</span><span class="pill">Vue.js (Kirby Panel)</span></div>
+        </div>
+      </article>
+      <article class="card" id="bp-sustain" data-tags="Kirby CMS|JavaScript|SEO|Consent Banner (GDPR)|Vue.js (Kirby Panel)">
+        <div class="shot"><img src="shots/bp-sustain.jpg" alt="Homepage screenshot of BP Sustain" loading="lazy"></div>
+        <div class="body">
+          <h3 class="title">BP Sustain</h3>
+          <span class="cms mono">Kirby CMS</span>
+          <span class="url"><a href="https://bp-sustain.com" target="_blank" rel="noopener">bp-sustain.com</a></span>
+          <p class="desc">Corporate sustainability platform.</p>
+          <p class="role"><strong>My contribution — </strong>Solo build from scratch — modular JavaScript, standard sitemap/SEO/consent-banner plugin suite.</p>
+          <div class="pills"><span class="pill">Kirby CMS</span><span class="pill">JavaScript</span><span class="pill">SEO</span><span class="pill">Consent Banner (GDPR)</span><span class="pill">Vue.js (Kirby Panel)</span></div>
+        </div>
+      </article>
+      <article class="card" id="cbwnet" data-tags="Kirby CMS|JavaScript|SEO|Consent Banner (GDPR)|Vue.js (Kirby Panel)">
+        <div class="shot"><img src="shots/cbwnet.jpg" alt="Homepage screenshot of CBWnet" loading="lazy"></div>
+        <div class="body">
+          <h3 class="title">CBWnet</h3>
+          <span class="cms mono">Kirby CMS</span>
+          <span class="url"><a href="https://www.cbwnet.org" target="_blank" rel="noopener">www.cbwnet.org</a></span>
+          <p class="desc">Non-profit / network organization website.</p>
+          <p class="role"><strong>My contribution — </strong>Solo build from scratch — modular JavaScript, standard sitemap/SEO/consent-banner plugin suite.</p>
+          <div class="pills"><span class="pill">Kirby CMS</span><span class="pill">JavaScript</span><span class="pill">SEO</span><span class="pill">Consent Banner (GDPR)</span><span class="pill">Vue.js (Kirby Panel)</span></div>
+        </div>
+      </article>
+      <article class="card" id="citeseeing" data-tags="Kirby CMS|E-Commerce|Snipcart|Stripe|PayPal|UPS API|Order Logic">
+        <div class="shot"><img src="shots/citeseeing.jpg" alt="Homepage screenshot of Citeseeing Postershop" loading="lazy"></div>
+        <div class="body">
+          <h3 class="title">Citeseeing Postershop</h3>
+          <span class="cms mono">Kirby CMS</span>
+          <span class="url"><a href="https://citeseeing.de" target="_blank" rel="noopener">citeseeing.de</a></span>
+          <p class="desc">E-commerce poster shop.</p>
+          <p class="role"><strong>My contribution — </strong>Solo build from scratch, including a full shop system: Snipcart storefront with PayPal and Stripe payment, UPS shipping integration, and order-state logic (stock handling, sold-out archiving, admin notifications).</p>
+          <div class="pills"><span class="pill">Kirby CMS</span><span class="pill">E-Commerce</span><span class="pill">Snipcart</span><span class="pill">Stripe</span><span class="pill">PayPal</span><span class="pill">UPS API</span><span class="pill">Order Logic</span></div>
+        </div>
+      </article>
+      <article class="card" id="deepcuts" data-tags="Kirby CMS|JavaScript|SEO|Consent Banner (GDPR)|Vue.js (Kirby Panel)">
+        <div class="shot"><img src="shots/deepcuts.jpg" alt="Homepage screenshot of Deepcuts" loading="lazy"></div>
+        <div class="body">
+          <h3 class="title">Deepcuts</h3>
+          <span class="cms mono">Kirby CMS</span>
+          <span class="url"><a href="https://deepcuts.org" target="_blank" rel="noopener">deepcuts.org</a></span>
+          <p class="desc">Content and media platform.</p>
+          <p class="role"><strong>My contribution — </strong>Solo build from scratch — modular JavaScript, standard sitemap/SEO/consent-banner plugin suite.</p>
+          <div class="pills"><span class="pill">Kirby CMS</span><span class="pill">JavaScript</span><span class="pill">SEO</span><span class="pill">Consent Banner (GDPR)</span><span class="pill">Vue.js (Kirby Panel)</span></div>
+        </div>
+      </article>
+      <article class="card" id="fbh-berlin" data-tags="TYPO3|JavaScript|Backend Development|Research / Institutional Web">
+        <div class="shot"><img src="shots/fbh-berlin.jpg" alt="Homepage screenshot of Ferdinand-Braun-Institut (FBH)" loading="lazy"></div>
+        <div class="body">
+          <h3 class="title">Ferdinand-Braun-Institut (FBH)</h3>
+          <span class="cms mono">TYPO3</span>
+          <span class="url"><a href="https://www.fbh-berlin.de" target="_blank" rel="noopener">www.fbh-berlin.de</a></span>
+          <p class="desc">Leibniz Institute for High Frequency Technology — research institute website.</p>
+          <p class="role"><strong>My contribution — </strong>Frontend styling and modular JavaScript, plus backend elements: custom content elements, adjusted plugins, and database-driven logic.</p>
+          <div class="pills"><span class="pill">TYPO3</span><span class="pill">JavaScript</span><span class="pill">Backend Development</span><span class="pill">Research / Institutional Web</span></div>
+        </div>
+      </article>
+      <article class="card" id="forschungsboerse" data-tags="TYPO3|Public Sector / Government">
+        <div class="shot"><img src="shots/forschungsboerse.jpg" alt="Homepage screenshot of Forschungsbörse der Wissenschaftsjahre, DLR-Projektträger" loading="lazy"></div>
+        <div class="body">
+          <h3 class="title">Forschungsbörse der Wissenschaftsjahre, DLR-Projektträger</h3>
+          <span class="cms mono">TYPO3</span>
+          <span class="url"><a href="https://www.forschungsboerse.de" target="_blank" rel="noopener">www.forschungsboerse.de</a></span>
+          <p class="desc">Public science-outreach platform run under Germany's Wissenschaftsjahre program via the DLR Project Management Agency.</p>
+          <p class="role"><strong>My contribution — </strong>TYPO3 development as part of the agency delivery team.</p>
+          <div class="pills"><span class="pill">TYPO3</span><span class="pill">Public Sector / Government</span></div>
+        </div>
+      </article>
+      <article class="card" id="hc-schink" data-tags="Kirby CMS|JavaScript|SEO|Consent Banner (GDPR)|Vue.js (Kirby Panel)">
+        <div class="shot"><img src="shots/hc-schink.jpg" alt="Homepage screenshot of Hans Christian Schink, Fotograf" loading="lazy"></div>
+        <div class="body">
+          <h3 class="title">Hans Christian Schink, Fotograf</h3>
+          <span class="cms mono">Kirby CMS</span>
+          <span class="url"><a href="https://hc-schink.de" target="_blank" rel="noopener">hc-schink.de</a></span>
+          <p class="desc">Portfolio website for a professional photographer.</p>
+          <p class="role"><strong>My contribution — </strong>Solo build from scratch — modular JavaScript, standard sitemap/SEO/consent-banner plugin suite.</p>
+          <div class="pills"><span class="pill">Kirby CMS</span><span class="pill">JavaScript</span><span class="pill">SEO</span><span class="pill">Consent Banner (GDPR)</span><span class="pill">Vue.js (Kirby Panel)</span></div>
+        </div>
+      </article>
+      <article class="card" id="holocaust-remedies" data-tags="Kirby CMS|JavaScript|SEO|Consent Banner (GDPR)|Vue.js (Kirby Panel)">
+        <div class="shot"><img src="shots/holocaust-remedies.jpg" alt="Homepage screenshot of Holocaust Remedies" loading="lazy"></div>
+        <div class="body">
+          <h3 class="title">Holocaust Remedies</h3>
+          <span class="cms mono">Kirby CMS</span>
+          <span class="url"><a href="https://holocaust-remedies.com" target="_blank" rel="noopener">holocaust-remedies.com</a></span>
+          <p class="desc">Documentation and information platform.</p>
+          <p class="role"><strong>My contribution — </strong>Solo build from scratch — modular JavaScript, standard sitemap/SEO/consent-banner plugin suite.</p>
+          <div class="pills"><span class="pill">Kirby CMS</span><span class="pill">JavaScript</span><span class="pill">SEO</span><span class="pill">Consent Banner (GDPR)</span><span class="pill">Vue.js (Kirby Panel)</span></div>
+        </div>
+      </article>
+      <article class="card" id="hellmund-berater" data-tags="Kirby CMS|JavaScript|SEO|Consent Banner (GDPR)|Vue.js (Kirby Panel)">
+        <div class="shot"><img src="shots/hellmund-berater.jpg" alt="Homepage screenshot of Hellmund – die Berater, Ina & Jörg Westphal GbR" loading="lazy"></div>
+        <div class="body">
+          <h3 class="title">Hellmund – die Berater, Ina & Jörg Westphal GbR</h3>
+          <span class="cms mono">Kirby CMS</span>
+          <span class="url"><a href="https://hellmund-berater.de" target="_blank" rel="noopener">hellmund-berater.de</a></span>
+          <p class="desc">Consulting firm website.</p>
+          <p class="role"><strong>My contribution — </strong>Solo build from scratch — modular JavaScript, standard sitemap/SEO/consent-banner plugin suite.</p>
+          <div class="pills"><span class="pill">Kirby CMS</span><span class="pill">JavaScript</span><span class="pill">SEO</span><span class="pill">Consent Banner (GDPR)</span><span class="pill">Vue.js (Kirby Panel)</span></div>
+        </div>
+      </article>
+      <article class="card" id="innenarchitektur-werkstatt" data-tags="Kirby CMS|JavaScript|SEO|Consent Banner (GDPR)|Vue.js (Kirby Panel)">
+        <div class="shot"><img src="shots/innenarchitektur-werkstatt.jpg" alt="Homepage screenshot of Innenarchitektur & Werkstatt Florian Siegel" loading="lazy"></div>
+        <div class="body">
+          <h3 class="title">Innenarchitektur & Werkstatt Florian Siegel</h3>
+          <span class="cms mono">Kirby CMS</span>
+          <span class="url"><a href="https://innenarchitektur-werkstatt.de" target="_blank" rel="noopener">innenarchitektur-werkstatt.de</a></span>
+          <p class="desc">Interior design studio and workshop website.</p>
+          <p class="role"><strong>My contribution — </strong>Solo build from scratch — modular JavaScript, standard sitemap/SEO/consent-banner plugin suite.</p>
+          <div class="pills"><span class="pill">Kirby CMS</span><span class="pill">JavaScript</span><span class="pill">SEO</span><span class="pill">Consent Banner (GDPR)</span><span class="pill">Vue.js (Kirby Panel)</span></div>
+        </div>
+      </article>
+      <article class="card" id="innocam-nrw" data-tags="TYPO3|JavaScript|Backend Development|Public Sector / Government">
+        <div class="shot"><img src="shots/innocam-nrw.jpg" alt="Homepage screenshot of Innocam.NRW" loading="lazy"></div>
+        <div class="body">
+          <h3 class="title">Innocam.NRW</h3>
+          <span class="cms mono">TYPO3</span>
+          <span class="url"><a href="https://www.innocam.nrw/" target="_blank" rel="noopener">innocam.nrw</a></span>
+          <p class="desc">North Rhine-Westphalia state innovation and mobility network platform.</p>
+          <p class="role"><strong>My contribution — </strong>Frontend styling and modular JavaScript, plus backend elements: custom content elements, adjusted plugins, and database-driven logic.</p>
+          <div class="pills"><span class="pill">TYPO3</span><span class="pill">JavaScript</span><span class="pill">Backend Development</span><span class="pill">Public Sector / Government</span></div>
+        </div>
+      </article>
+      <article class="card" id="hoertnagel" data-tags="TYPO3|Frontend|Relaunch">
+        <div class="shot"><img src="shots/hoertnagel.jpg" alt="Homepage screenshot of Konzertdirektion Hörtnagel Berlin" loading="lazy"></div>
+        <div class="body">
+          <h3 class="title">Konzertdirektion Hörtnagel Berlin</h3>
+          <span class="cms mono">TYPO3</span>
+          <span class="url"><a href="https://hoertnagel.com" target="_blank" rel="noopener">hoertnagel.com</a></span>
+          <p class="desc">Concert agency and artist booking website.</p>
+          <p class="role"><strong>My contribution — </strong>TYPO3 relaunch — frontend implementation on top of existing backend logic.</p>
+          <div class="pills"><span class="pill">TYPO3</span><span class="pill">Frontend</span><span class="pill">Relaunch</span></div>
+        </div>
+      </article>
+      <article class="card" id="kryolan" data-tags="Shopware|E-Commerce|PHP|Theme Development">
+        <div class="shot"><img src="shots/kryolan.jpg" alt="Homepage screenshot of Kryolan / PMC Berlin" loading="lazy"></div>
+        <div class="body">
+          <h3 class="title">Kryolan / PMC Berlin</h3>
+          <span class="cms mono">Shopware</span>
+          <span class="url"><a href="https://www.kryolan.com" target="_blank" rel="noopener">www.kryolan.com</a></span>
+          <p class="desc">E-commerce shop for a professional make-up brand.</p>
+          <p class="role"><strong>My contribution — </strong>Built custom shop components and adjusted the base storefront theme.</p>
+          <div class="pills"><span class="pill">Shopware</span><span class="pill">E-Commerce</span><span class="pill">PHP</span><span class="pill">Theme Development</span></div>
+        </div>
+      </article>
+      <article class="card" id="linda-creed" data-tags="Kirby CMS|JavaScript|SEO|Consent Banner (GDPR)|Vue.js (Kirby Panel)">
+        <div class="shot"><div class="placeholder">Site currently offline<br>Linda Creed Breast Cancer Organization</div></div>
+        <div class="body">
+          <h3 class="title">Linda Creed Breast Cancer Organization</h3>
+          <span class="cms mono">Kirby CMS</span>
+          <span class="url">Status: offline</span>
+          <p class="desc">Non-profit organization website (currently offline).</p>
+          <p class="role"><strong>My contribution — </strong>Solo build from scratch — modular JavaScript, standard sitemap/SEO/consent-banner plugin suite.</p>
+          <div class="pills"><span class="pill">Kirby CMS</span><span class="pill">JavaScript</span><span class="pill">SEO</span><span class="pill">Consent Banner (GDPR)</span><span class="pill">Vue.js (Kirby Panel)</span></div>
+        </div>
+      </article>
+      <article class="card" id="luxuar" data-tags="Kirby CMS|JavaScript|SEO|Consent Banner (GDPR)|Vue.js (Kirby Panel)|CDN (bunny.net)">
+        <div class="shot"><img src="shots/luxuar.jpg" alt="Homepage screenshot of Luxuar Fashion" loading="lazy"></div>
+        <div class="body">
+          <h3 class="title">Luxuar Fashion</h3>
+          <span class="cms mono">Kirby CMS</span>
+          <span class="url"><a href="https://luxuar.com" target="_blank" rel="noopener">luxuar.com</a></span>
+          <p class="desc">Fashion brand e-commerce and lookbook website.</p>
+          <p class="role"><strong>My contribution — </strong>Solo build from scratch, including bunny.net CDN integration for global asset delivery.</p>
+          <div class="pills"><span class="pill">Kirby CMS</span><span class="pill">JavaScript</span><span class="pill">SEO</span><span class="pill">Consent Banner (GDPR)</span><span class="pill">Vue.js (Kirby Panel)</span><span class="pill">CDN (bunny.net)</span></div>
+        </div>
+      </article>
+      <article class="card" id="maren-lehky" data-tags="WordPress|Kirby CMS|JavaScript|SEO">
+        <div class="shot"><img src="shots/maren-lehky.jpg" alt="Homepage screenshot of Maren Lehky" loading="lazy"></div>
+        <div class="body">
+          <h3 class="title">Maren Lehky</h3>
+          <span class="cms mono">WordPress → Kirby CMS (rebuild)</span>
+          <span class="url"><a href="https://maren-lehky.de" target="_blank" rel="noopener">maren-lehky.de</a></span>
+          <p class="desc">Personal / professional portfolio website, originally built on WordPress and later rebuilt on Kirby CMS.</p>
+          <p class="role"><strong>My contribution — </strong>Solo build of both versions from scratch — modular JavaScript, standard sitemap/SEO/consent-banner plugin suite on the Kirby rebuild.</p>
+          <div class="pills"><span class="pill">WordPress</span><span class="pill">Kirby CMS</span><span class="pill">JavaScript</span><span class="pill">SEO</span></div>
+        </div>
+      </article>
+      <article class="card" id="restauratorhannover" data-tags="Kirby CMS|JavaScript|SEO|Consent Banner (GDPR)|Vue.js (Kirby Panel)">
+        <div class="shot"><img src="shots/restauratorhannover.jpg" alt="Homepage screenshot of Martin Merkert (Restaurator)" loading="lazy"></div>
+        <div class="body">
+          <h3 class="title">Martin Merkert (Restaurator)</h3>
+          <span class="cms mono">Kirby CMS</span>
+          <span class="url"><a href="https://restauratorhannover.de" target="_blank" rel="noopener">restauratorhannover.de</a></span>
+          <p class="desc">Website for an independent art restorer.</p>
+          <p class="role"><strong>My contribution — </strong>Solo build from scratch — modular JavaScript, standard sitemap/SEO/consent-banner plugin suite.</p>
+          <div class="pills"><span class="pill">Kirby CMS</span><span class="pill">JavaScript</span><span class="pill">SEO</span><span class="pill">Consent Banner (GDPR)</span><span class="pill">Vue.js (Kirby Panel)</span></div>
+        </div>
+      </article>
+      <article class="card" id="mbi-berlin" data-tags="TYPO3|JavaScript|Backend Development|Research / Institutional Web">
+        <div class="shot"><img src="shots/mbi-berlin.jpg" alt="Homepage screenshot of Max-Born-Institut (MBI)" loading="lazy"></div>
+        <div class="body">
+          <h3 class="title">Max-Born-Institut (MBI)</h3>
+          <span class="cms mono">TYPO3</span>
+          <span class="url"><a href="https://www.mbi-berlin.de" target="_blank" rel="noopener">www.mbi-berlin.de</a></span>
+          <p class="desc">Leibniz Institute for Nonlinear Optics and Short Pulse Spectroscopy — research institute website.</p>
+          <p class="role"><strong>My contribution — </strong>Frontend styling and modular JavaScript, plus backend elements: custom content elements, adjusted plugins, and database-driven logic.</p>
+          <div class="pills"><span class="pill">TYPO3</span><span class="pill">JavaScript</span><span class="pill">Backend Development</span><span class="pill">Research / Institutional Web</span></div>
+        </div>
+      </article>
+      <article class="card" id="mzla" data-tags="Kirby CMS|Maintenance|Feature Development">
+        <div class="shot"><img src="shots/mzla.jpg" alt="Homepage screenshot of Medizinisches Zentrallabor Altenburg (MZLA)" loading="lazy"></div>
+        <div class="body">
+          <h3 class="title">Medizinisches Zentrallabor Altenburg (MZLA)</h3>
+          <span class="cms mono">Kirby CMS</span>
+          <span class="url"><a href="https://mzla.de" target="_blank" rel="noopener">mzla.de</a></span>
+          <p class="desc">Medical laboratory website.</p>
+          <p class="role"><strong>My contribution — </strong>Maintenance and feature development on an existing Kirby CMS build originally developed by another party.</p>
+          <div class="pills"><span class="pill">Kirby CMS</span><span class="pill">Maintenance</span><span class="pill">Feature Development</span></div>
+        </div>
+      </article>
+      <article class="card" id="mwanawange" data-tags="Kirby CMS|JavaScript|SEO|Consent Banner (GDPR)|Vue.js (Kirby Panel)">
+        <div class="shot"><img src="shots/mwanawange.jpg" alt="Homepage screenshot of Mwana Wange" loading="lazy"></div>
+        <div class="body">
+          <h3 class="title">Mwana Wange</h3>
+          <span class="cms mono">Kirby CMS</span>
+          <span class="url"><a href="https://mwanawange.de" target="_blank" rel="noopener">mwanawange.de</a></span>
+          <p class="desc">Non-profit organization website.</p>
+          <p class="role"><strong>My contribution — </strong>Solo build from scratch — modular JavaScript, standard sitemap/SEO/consent-banner plugin suite.</p>
+          <div class="pills"><span class="pill">Kirby CMS</span><span class="pill">JavaScript</span><span class="pill">SEO</span><span class="pill">Consent Banner (GDPR)</span><span class="pill">Vue.js (Kirby Panel)</span></div>
+        </div>
+      </article>
+      <article class="card" id="pdi-berlin" data-tags="TYPO3|JavaScript|Backend Development|Research / Institutional Web">
+        <div class="shot"><img src="shots/pdi-berlin.jpg" alt="Homepage screenshot of Paul-Drude-Institut (PDI)" loading="lazy"></div>
+        <div class="body">
+          <h3 class="title">Paul-Drude-Institut (PDI)</h3>
+          <span class="cms mono">TYPO3</span>
+          <span class="url"><a href="https://www.pdi-berlin.de" target="_blank" rel="noopener">www.pdi-berlin.de</a></span>
+          <p class="desc">Leibniz Institute for Crystal Growth — research institute website.</p>
+          <p class="role"><strong>My contribution — </strong>Frontend styling and modular JavaScript, plus backend elements: custom content elements, adjusted plugins, and database-driven logic.</p>
+          <div class="pills"><span class="pill">TYPO3</span><span class="pill">JavaScript</span><span class="pill">Backend Development</span><span class="pill">Research / Institutional Web</span></div>
+        </div>
+      </article>
+      <article class="card" id="claudia-alberts" data-tags="Kirby CMS|JavaScript|SEO|Consent Banner (GDPR)|Vue.js (Kirby Panel)">
+        <div class="shot"><img src="shots/claudia-alberts.jpg" alt="Homepage screenshot of Praxis Claudia Alberts" loading="lazy"></div>
+        <div class="body">
+          <h3 class="title">Praxis Claudia Alberts</h3>
+          <span class="cms mono">Kirby CMS</span>
+          <span class="url"><a href="https://claudia-alberts.de" target="_blank" rel="noopener">claudia-alberts.de</a></span>
+          <p class="desc">Medical practice website.</p>
+          <p class="role"><strong>My contribution — </strong>Solo build from scratch — modular JavaScript, standard sitemap/SEO/consent-banner plugin suite.</p>
+          <div class="pills"><span class="pill">Kirby CMS</span><span class="pill">JavaScript</span><span class="pill">SEO</span><span class="pill">Consent Banner (GDPR)</span><span class="pill">Vue.js (Kirby Panel)</span></div>
+        </div>
+      </article>
+      <article class="card" id="preminded" data-tags="Kirby CMS|JavaScript|SEO|Consent Banner (GDPR)|Vue.js (Kirby Panel)">
+        <div class="shot"><img src="shots/preminded.jpg" alt="Homepage screenshot of preminded.com, Jörg Becker" loading="lazy"></div>
+        <div class="body">
+          <h3 class="title">preminded.com, Jörg Becker</h3>
+          <span class="cms mono">Kirby CMS</span>
+          <span class="url"><a href="https://www.preminded.com" target="_blank" rel="noopener">www.preminded.com</a></span>
+          <p class="desc">Professional / consulting website.</p>
+          <p class="role"><strong>My contribution — </strong>Solo build from scratch — modular JavaScript, standard sitemap/SEO/consent-banner plugin suite.</p>
+          <div class="pills"><span class="pill">Kirby CMS</span><span class="pill">JavaScript</span><span class="pill">SEO</span><span class="pill">Consent Banner (GDPR)</span><span class="pill">Vue.js (Kirby Panel)</span></div>
+        </div>
+      </article>
+      <article class="card" id="sachensucher" data-tags="Directus Headless CMS|Nuxt.js|Kirby CMS|Interactive App|Gamification|Animation">
+        <div class="shot"><div class="placeholder">Site currently offline<br>Sachensucher (Kinderuni Bochum)</div></div>
+        <div class="body">
+          <h3 class="title">Sachensucher (Kinderuni Bochum)</h3>
+          <span class="cms mono">Directus + Nuxt.js → Kirby CMS (rebuild)</span>
+          <span class="url">Status: offline</span>
+          <p class="desc">Interactive mini-app for children built for Kinderuni Bochum, with gamified transactions/interactions and animation.</p>
+          <p class="role"><strong>My contribution — </strong>Built the original interactive app on Directus Headless CMS with a Nuxt.js frontend, including the game-style transaction logic and animations; later rebuilt the project on Kirby CMS.</p>
+          <div class="pills"><span class="pill">Directus Headless CMS</span><span class="pill">Nuxt.js</span><span class="pill">Kirby CMS</span><span class="pill">Interactive App</span><span class="pill">Gamification</span><span class="pill">Animation</span></div>
+        </div>
+      </article>
+      <article class="card" id="swissbiotechday" data-tags="WordPress|Symfony|Wallee|REST API|Multi-step Forms|Conditional Logic">
+        <div class="shot"><img src="shots/swissbiotechday.jpg" alt="Homepage screenshot of Swiss Biotech Day (Registrierung)" loading="lazy"></div>
+        <div class="body">
+          <h3 class="title">Swiss Biotech Day (Registrierung)</h3>
+          <span class="cms mono">WordPress + Symfony API</span>
+          <span class="url"><a href="https://swissbiotechday.ch" target="_blank" rel="noopener">swissbiotechday.ch</a></span>
+          <p class="desc">Registration platform for a Swiss biotech industry conference.</p>
+          <p class="role"><strong>My contribution — </strong>Developed a WordPress plugin integrating the Wallee payment system with a Symfony backend over a REST API, and built a multi-step registration form with conditional field logic.</p>
+          <div class="pills"><span class="pill">WordPress</span><span class="pill">Symfony</span><span class="pill">Wallee</span><span class="pill">REST API</span><span class="pill">Multi-step Forms</span><span class="pill">Conditional Logic</span></div>
+        </div>
+      </article>
+      <article class="card" id="tonderaplan" data-tags="Kirby CMS|JavaScript|SEO|Consent Banner (GDPR)|Vue.js (Kirby Panel)">
+        <div class="shot"><img src="shots/tonderaplan.jpg" alt="Homepage screenshot of Tonderaplan Architekt" loading="lazy"></div>
+        <div class="body">
+          <h3 class="title">Tonderaplan Architekt</h3>
+          <span class="cms mono">Kirby CMS</span>
+          <span class="url"><a href="https://tonderaplan.de" target="_blank" rel="noopener">tonderaplan.de</a></span>
+          <p class="desc">Architecture studio website.</p>
+          <p class="role"><strong>My contribution — </strong>Solo build from scratch — modular JavaScript, standard sitemap/SEO/consent-banner plugin suite.</p>
+          <div class="pills"><span class="pill">Kirby CMS</span><span class="pill">JavaScript</span><span class="pill">SEO</span><span class="pill">Consent Banner (GDPR)</span><span class="pill">Vue.js (Kirby Panel)</span></div>
+        </div>
+      </article>
+      <article class="card" id="truckinfocus" data-tags="Directus Headless CMS|Next.js|Symfony|Doctrine ORM|PHP|GetStream|API Automation|Cron Jobs|Social Media Integration|Authentication|i18n (Loco)">
+        <div class="shot"><img src="shots/truckinfocus.jpg" alt="Homepage screenshot of truckinfocus.com" loading="lazy"></div>
+        <div class="body">
+          <h3 class="title">truckinfocus.com</h3>
+          <span class="cms mono">Directus + Next.js — form module later migrated to Symfony</span>
+          <span class="url"><a href="https://www.truckinfocus.com" target="_blank" rel="noopener">www.truckinfocus.com</a></span>
+          <p class="desc">Automotive / trucking media and content platform, originally built on Directus Headless CMS with a Next.js frontend.</p>
+          <p class="role"><strong>My contribution — </strong>Full-stack contributor across frontend and backend: database structure, authentication and registration, translation management (Loco), and a social-feed feature built with GetStream, plus cron-driven automation publishing content daily from the database to Bluesky, Instagram, Facebook and Pinterest. Later migrated a large multi-step form module to Symfony with Doctrine ORM for the database layer.</p>
+          <div class="pills"><span class="pill">Directus Headless CMS</span><span class="pill">Next.js</span><span class="pill">Symfony</span><span class="pill">Doctrine ORM</span><span class="pill">PHP</span><span class="pill">GetStream</span><span class="pill">API Automation</span><span class="pill">Cron Jobs</span><span class="pill">Social Media Integration</span><span class="pill">Authentication</span><span class="pill">i18n (Loco)</span></div>
+        </div>
+      </article>
+      <article class="card" id="typenraum" data-tags="Kirby CMS|JavaScript|i18n / Translation Plugin|SEO|Consent Banner (GDPR)|Vue.js (Kirby Panel)">
+        <div class="shot"><img src="shots/typenraum.jpg" alt="Homepage screenshot of typenraum GmbH & Co. KG" loading="lazy"></div>
+        <div class="body">
+          <h3 class="title">typenraum GmbH & Co. KG</h3>
+          <span class="cms mono">Kirby CMS</span>
+          <span class="url"><a href="https://typenraum.com" target="_blank" rel="noopener">typenraum.com</a></span>
+          <p class="desc">Corporate website with multilingual content.</p>
+          <p class="role"><strong>My contribution — </strong>Solo build from scratch, including a custom translation plugin and the standard sitemap/SEO/consent-banner plugin suite.</p>
+          <div class="pills"><span class="pill">Kirby CMS</span><span class="pill">JavaScript</span><span class="pill">i18n / Translation Plugin</span><span class="pill">SEO</span><span class="pill">Consent Banner (GDPR)</span><span class="pill">Vue.js (Kirby Panel)</span></div>
+        </div>
+      </article>
+      <article class="card" id="zmo" data-tags="TYPO3|JavaScript|Backend Development|Research / Institutional Web">
+        <div class="shot"><img src="shots/zmo.jpg" alt="Homepage screenshot of Zentrum Moderner Orient (ZMO)" loading="lazy"></div>
+        <div class="body">
+          <h3 class="title">Zentrum Moderner Orient (ZMO)</h3>
+          <span class="cms mono">TYPO3</span>
+          <span class="url"><a href="https://www.zmo.de" target="_blank" rel="noopener">www.zmo.de</a></span>
+          <p class="desc">Leibniz institute for area studies on the Middle East, Africa, South and Southeast Asia.</p>
+          <p class="role"><strong>My contribution — </strong>Frontend styling and modular JavaScript, plus backend elements: custom content elements, adjusted plugins, and database-driven logic.</p>
+          <div class="pills"><span class="pill">TYPO3</span><span class="pill">JavaScript</span><span class="pill">Backend Development</span><span class="pill">Research / Institutional Web</span></div>
+        </div>
+      </article>
+      <article class="card" id="berbach-relaunch" data-tags="Kirby CMS|Vue.js|Animation|Panel Color Config|Internal Project">
+        <div class="shot"><img src="shots/berbach-relaunch.jpg" alt="Homepage screenshot of the berbach GmbH relaunch demo" loading="lazy"></div>
+        <div class="body">
+          <h3 class="title">berbach GmbH — Agency Website Relaunch</h3>
+          <span class="cms mono">Kirby CMS + Vue.js</span>
+          <span class="url">Status: internal demo, running placeholder content — <a href="https://berbach.berbach.dev/" target="_blank" rel="noopener">berbach.berbach.dev</a></span>
+          <p class="desc">Relaunch of the agency's own corporate website, currently running as an internal demo with placeholder content ahead of public launch.</p>
+          <p class="role"><strong>My contribution — </strong>Extensive scroll-driven interaction and animation work built with Vue.js on top of Kirby CMS, including a Panel-configurable color/theme system so editors can adjust the site's accent colors without touching code.</p>
+          <div class="pills"><span class="pill">Kirby CMS</span><span class="pill">Vue.js</span><span class="pill">Animation</span><span class="pill">Panel Color Config</span><span class="pill">Internal Project</span></div>
+        </div>
+      </article>
+      <article class="card" id="berbach-theme-v1" data-tags="Kirby CMS|Internal Tooling|Theming System|Panel Color Config|Starter Kit">
+        <div class="shot"><img src="shots/berbach-theme-v1.jpg" alt="Homepage screenshot of the berbach Theme v1 demo" loading="lazy"></div>
+        <div class="body">
+          <h3 class="title">berbach Theme v1 (Internal Starter Kit)</h3>
+          <span class="cms mono">Kirby CMS</span>
+          <span class="url">Status: internal demo, access-protected — <a href="https://v1.theme.berbach.dev/" target="_blank" rel="noopener">v1.theme.berbach.dev</a></span>
+          <p class="desc">Original version of a reusable, internal Kirby CMS starter theme for future agency projects, shown here with generic placeholder demo content.</p>
+          <p class="role"><strong>My contribution — </strong>Built the original Panel-configurable color/theme system as part of this starter kit, later carried forward and refined in Theme v2.</p>
+          <div class="pills"><span class="pill">Kirby CMS</span><span class="pill">Internal Tooling</span><span class="pill">Theming System</span><span class="pill">Panel Color Config</span><span class="pill">Starter Kit</span></div>
+        </div>
+      </article>
+      <article class="card" id="berbach-theme-v2" data-tags="Kirby CMS|Internal Tooling|Theming System|Panel Color Config|Starter Kit">
+        <div class="shot"><img src="shots/hellmund-v2-theme.jpg" alt="Homepage screenshot of the berbach Theme v2 demo" loading="lazy"></div>
+        <div class="body">
+          <h3 class="title">berbach Theme v2 (Internal Starter Kit)</h3>
+          <span class="cms mono">Kirby CMS</span>
+          <span class="url">Status: internal demo, running placeholder content — <a href="https://v2.theme.berbach.dev/" target="_blank" rel="noopener">v2.theme.berbach.dev</a></span>
+          <p class="desc">Reusable internal Kirby CMS starter theme for future agency projects, originally developed out of the Hellmund project and now shown with generic placeholder demo content.</p>
+          <p class="role"><strong>My contribution — </strong>Built the Panel-configurable color/theme system as part of a reusable starter kit, letting editors adjust a site's accent colors directly from the Kirby Panel without code changes.</p>
+          <div class="pills"><span class="pill">Kirby CMS</span><span class="pill">Internal Tooling</span><span class="pill">Theming System</span><span class="pill">Panel Color Config</span><span class="pill">Starter Kit</span></div>
+        </div>
+      </article>
+    </div>
+  </section>
+
+  <footer class="page-footer">
+    Project list corroborated by the employer reference (Arbeitszeugnis) issued by berbach GmbH,
+    Lausitzer Straße 31, 10999 Berlin, dated 30.09.2026, signed by Managing Director Torsten Alberts.
+    <span class="mono">berbach GmbH · Agentur für Design und Medien · Berlin, Germany</span>
+  </footer>
+
+</div>
+
+<script>
+document.getElementById('filterbar').addEventListener('click', (e) => {
+  const btn = e.target.closest('.filter-btn');
+  if (!btn) return;
+  document.querySelectorAll('.filter-btn').forEach(b => b.classList.remove('active'));
+  btn.classList.add('active');
+  const f = btn.dataset.filter;
+  document.querySelectorAll('#indexList li, .card').forEach(el => {
+    const show = f === 'all' || (el.dataset.tags && el.dataset.tags.includes(f));
+    el.hidden = !show;
+  });
+});
+</script>
+
+</body>
+</html>
